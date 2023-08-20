@@ -44,17 +44,17 @@ function seleccionarMascota() {
     let seleccionada = ""
 
     if (ratihuella.checked) {
-        seleccionada = "ratihuella"
+        seleccionada = "Ratihuella"
     } else if (hipodoge.checked) {
-        seleccionada = "hipodoge"
+        seleccionada = "Hipodoge"
     } else if (capipepo.checked) {
-        seleccionada = "capipepo"
+        seleccionada = "Capipepo"
     } else if (langostelvis.checked) {
-        seleccionada = "langostelvis"
+        seleccionada = "Langostelvis"
     } else if (tucapalma.checked) {
-        seleccionada = "tucapalma"
+        seleccionada = "Tucapalma"
     } else if (pydos.checked) {
-        seleccionada = "pydos"
+        seleccionada = "Pydos"
     } else {
         alert("Seleccione una mascota")
     }
@@ -68,24 +68,24 @@ function mascotaAleatoria() {
     seccionMascota.style.display = "none"
     
     let seccionAtaque = document.getElementById("ataque")
-    seccionAtaque.style.display = "block"
+    seccionAtaque.style.display = "flex"
     
     let random = rand(1, 6)
     let spanMascotaEnemiga = document.getElementById("mascotaEnemigo")
     let seleccionada
 
     if (random === 1) {
-        seleccionada = "ratihuella"
+        seleccionada = "Ratihuella"
     } else if (random === 2) {
-        seleccionada = "hipodoge"
+        seleccionada = "Hipodoge"
     } else if (random === 3) {
-        seleccionada = "capipepo"
+        seleccionada = "Capipepo"
     } else if (random === 4) {
-        seleccionada = "langostelvis"
+        seleccionada = "Langostelvis"
     } else if (random === 5) {
-        seleccionada = "tucapalma"
+        seleccionada = "Tucapalma"
     } else {
-        seleccionada = "pydos"
+        seleccionada = "Pydos"
     }
 
     spanMascotaEnemiga.innerHTML = seleccionada;
@@ -120,29 +120,27 @@ function ataqueAleatorio() {
 }
 
 function combate() {
-    let spanVidasJugador = document.getElementById("spanVidasJugador")
-    let spanVidasEnemigo = document.getElementById("spanVidasEnemigo")
-    let conclusion
+    let spanVidasJugador = document.getElementById('spanVidasJugador')
+    let spanVidasEnemigo = document.getElementById('spanVidasEnemigo')
 
-    if (ataqueJugador === ataqueEnemigo) {
-        conclusion = "empate"
-    } else if (ataqueJugador === "fuego" && ataqueEnemigo === "tierra") {
-        conclusion = "ganaste"
+    if(ataqueEnemigo === ataqueJugador) {
+        mensaje("empate")
+    } else if(ataqueJugador === 'fuego' && ataqueEnemigo === 'tierra') {
+        mensaje("ganaste")
         vidasEnemigo--
-    } else if (ataqueJugador === "agua" && ataqueEnemigo === "fuego") {
-        conclusion = "ganaste"
+    } else if(ataqueJugador === 'agua' && ataqueEnemigo === 'fuego') {
+        mensaje("ganaste")
         vidasEnemigo--
-    } else if (ataqueJugador === "tierra" && ataqueEnemigo === "agua") {
-        conclusion = "ganaste"
+    } else if(ataqueJugador === 'tierra' && ataqueEnemigo === 'agua') {
+        mensaje("ganaste")
         vidasEnemigo--
     } else {
-        conclusion = "perdiste"
-        vidasJugador--;
+        mensaje("perdiste")
+        vidasJugador--
     }
 
     spanVidasJugador.innerHTML = vidasJugador.toString()
     spanVidasEnemigo.innerHTML = vidasEnemigo.toString()
-    mensaje(conclusion)
 
     revisarVidas()
 }
@@ -156,22 +154,29 @@ function revisarVidas() {
 }
 
 function mensaje(combate) {
-    let sectionMensajes = document.getElementById("mensajes")
-    let par = document.createElement("p")
+    let sectionResultado = document.getElementById("resultado")
+    let sectionJugador = document.getElementById("ataque-jugador")
+    let sectionEnemigo = document.getElementById("ataque-enemigo")
+    
+    
+    let jugador = document.createElement("p")
+    let enemigo = document.createElement("p")
+    
+    sectionResultado.innerHTML = combate.toUpperCase()
+    jugador.innerHTML = ataqueJugador
+    enemigo.innerHTML = ataqueEnemigo
 
-    par.innerHTML = "Tu mascota atacó con " + ataqueJugador.toUpperCase() + " y la mascota enemiga atacó con " + ataqueEnemigo.toUpperCase() + " → " + combate.toUpperCase()
-
-    sectionMensajes.appendChild(par)
+    sectionJugador.appendChild(jugador)
+    sectionEnemigo.appendChild(enemigo)
 }
 
 function mensajeFinal(msg) {
-    let sectionMensajes = document.getElementById("mensajes")
-    let par = document.createElement("p")
+    let sectionMensajes = document.getElementById("resultado")
 
     if (msg === 0) {
-        par.innerHTML = "PERDISTE LA PARTIDA"
+        sectionMensajes.innerHTML = "PERDISTE LA PARTIDA"
     } else if (msg === 1) {
-        par.innerHTML = "GANASTE LA PARTIDA"
+        sectionMensajes.innerHTML = "GANASTE LA PARTIDA"
     }
 
     let botonFuego = document.getElementById("boton-fuego")
@@ -182,11 +187,6 @@ function mensajeFinal(msg) {
 
     let botonTierra = document.getElementById("boton-tierra")
     botonTierra.disabled = true
-    
-    sectionMensajes.appendChild(par)
-
-    let seccionAtaque = document.getElementById("ataque")
-    seccionAtaque.style.display = "none"
 
     let seccionReiniciar = document.getElementById("reiniciar")
     seccionReiniciar.style.display = "block"
