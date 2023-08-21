@@ -5,9 +5,9 @@ const botonAgua = document.getElementById("boton-agua")
 const botonTierra = document.getElementById("boton-tierra")
 const botonReinicio = document.getElementById("boton-reinicio")
 
-const ratihuella = document.getElementById("ratihuella")
-const hipodoge = document.getElementById("hipodoge")
-const capipepo = document.getElementById("capipepo")
+const inputRatihuella = document.getElementById("ratihuella")
+const inputHipodoge = document.getElementById("hipodoge")
+const inputCapipepo = document.getElementById("capipepo")
 const spanMascotaJugador = document.getElementById("mascotaJugador")
 const spanMascotaEnemiga = document.getElementById("mascotaEnemigo")
 const seccionMascota = document.getElementById("mascota")
@@ -30,6 +30,19 @@ let vidasJugador = 3
 let vidasEnemigo = 3
 
 
+//Clases
+class Mokepon {
+    constructor(nombre, foto, vida) {
+        this.nombre = nombre
+        this.foto = foto
+        this.vida = vida
+    }
+}
+
+let ratihuella = new Mokepon("ratihuella", "https://i.imgur.com/FV7t6pc.png", 3)
+let hipodoge = new Mokepon("hipodoge", "https://i.imgur.com/dAKkjFV.png", 3)
+let capipepo = new Mokepon("capipepo", "https://i.imgur.com/PfqK1yF.png", 3)
+
 //Funciones
 function rand(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min)
@@ -48,11 +61,11 @@ function init() {
 function seleccionarMascota() {
     let seleccionada = ""
 
-    if (ratihuella.checked) {
+    if (inputRatihuella.checked) {
         seleccionada = "Ratihuella"
-    } else if (hipodoge.checked) {
+    } else if (inputHipodoge.checked) {
         seleccionada = "Hipodoge"
-    } else if (capipepo.checked) {
+    } else if (inputCapipepo.checked) {
         seleccionada = "Capipepo"
     } else {
         alert("Seleccione una mascota")
